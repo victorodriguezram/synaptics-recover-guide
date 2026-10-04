@@ -112,4 +112,4 @@ sh build.sh i686-w64-mingw32-     # 32-bit
 - The original build (CMake + MSVC + VC-LTL5) is described in
   [ORIGINAL-README.md](ORIGINAL-README.md) and `.github/workflows/win-build.yml`.
 - The program only links against DLLs that come with Windows
-  (kernel32, advapi32, msvcrt, shell32, shlwapi, version), so it runs on an offline PC.
+  (kernel32, advapi32, msvcrt, psapi, shell32, shlwapi, version), so it runs on an offline PC.

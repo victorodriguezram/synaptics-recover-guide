@@ -36,7 +36,7 @@ echo '1 24 "WinManifest.exe.manifest"' >> build/res.rc
     -Ibuild/compat -Isrc/winutils -Isrc/synare \
     -Isrc/synare/external -Isrc/synare/external/nowide -Isrc/synare/external/pugixml -Isrc/synare/external/zippy \
     src/app/main.cpp src/winutils/winutils.cpp src/synare/synare.cpp src/synare/external/pugixml/pugixml.cpp \
-    build/res.o -lshlwapi -lversion \
+    build/res.o -lshlwapi -lversion -lpsapi \
     -o out/synaptics-recover-$BITS.exe
 
 echo "Done: out/synaptics-recover-$BITS.exe"
