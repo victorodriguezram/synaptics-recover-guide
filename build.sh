@@ -29,9 +29,10 @@ sed -e 's|@RC_ICON_COMMENT@|//|' -e 's|@RC_ICON_PATH@||' \
 echo '1 24 "WinManifest.exe.manifest"' >> build/res.rc
 "${P}windres" --include-dir src/app build/res.rc -O coff -o build/res.o
 
+# _WIN32_WINNT=0x0600: Vista+, same minimum as the original VC-LTL build (needed for GetTickCount64).
 # -include: MSVC pulls in <utility> (std::as_const) and <cstdint> (uint32_t) implicitly, newer GCC does not.
 "${P}g++" -std=c++17 -O2 -s -static -include utility -include cstdint \
-    -DUNICODE -D_UNICODE -DAPP_VERSION="\"$VER\"" -DAPP_DISGUISE_STRING="\"$DISGUISE\"" \
+    -D_WIN32_WINNT=0x0600 -DUNICODE -D_UNICODE -DAPP_VERSION="\"$VER\"" -DAPP_DISGUISE_STRING="\"$DISGUISE\"" \
     -Ibuild/compat -Isrc/winutils -Isrc/synare \
     -Isrc/synare/external -Isrc/synare/external/nowide -Isrc/synare/external/pugixml -Isrc/synare/external/zippy \
     src/app/main.cpp src/winutils/winutils.cpp src/synare/synare.cpp src/synare/external/pugixml/pugixml.cpp \
