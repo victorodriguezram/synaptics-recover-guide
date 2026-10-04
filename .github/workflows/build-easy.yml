@@ -1,0 +1,35 @@
+# Builds the .exe files on GitHub's Windows servers with the same
+# build-windows.bat that the guide tells people to double-click.
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [x64, x86]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download w64devkit (${{ matrix.arch }})
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/skeeto/w64devkit/releases/download/v2.10.0/w64devkit-${{ matrix.arch }}-2.10.0.7z.exe" -OutFile w64devkit.7z.exe
+          7z x w64devkit.7z.exe -y
+
+      - name: Build
+        shell: cmd
+        run: build-windows.bat
+
+      - name: Show SHA256
+        shell: pwsh
+        run: Get-FileHash out\*.exe -Algorithm SHA256 | Format-List
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synaptics-recover-${{ matrix.arch }}
+          path: out/*.exe
