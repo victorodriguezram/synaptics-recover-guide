@@ -1,0 +1,118 @@
+SYNAPTICS VIRUS REMOVER - HOW TO USE
+====================================
+
+Tool written by SineStriker: https://github.com/SineStriker/synaptics-recover
+Easy guide: https://github.com/victorodriguezram/synaptics-recover-guide
+License: GPL-3.0
+
+WHAT YOU NEED
+-------------
+Only the .exe file. There is nothing to install: no DLLs, no .NET,
+no Visual C++ runtime, and no internet connection. If the infected PC is
+offline, copy the .exe and this file to it with a USB stick.
+
+  synaptics-recover-64bit.exe  -> 64-bit Windows (almost every PC and laptop)
+  synaptics-recover-32bit.exe  -> only for 32-bit Windows
+
+Not sure which Windows you have? Press Windows key + Pause/Break, or open
+Settings > System > About and look at "System type".
+The commands below use synaptics-recover-64bit.exe. If you have 32-bit
+Windows, type synaptics-recover-32bit.exe instead.
+
+BEFORE YOU START
+----------------
+* Antivirus or Windows Defender may flag or delete this tool. This is a
+  false alarm: on purpose, the tool contains the text
+  "Synaptics Pointing Device Driver" so the virus thinks the tool is
+  already infected and leaves it alone. If this happens, allow the file
+  in your antivirus, or pause real-time protection while you use the tool.
+* MAKE A BACKUP COPY of the infected program (for example on a USB stick)
+  before you change anything.
+* The tool runs in a Command Prompt (a black window). Do not just
+  double-click it. Follow the steps below.
+* Windows will ask "Do you want to allow this app to make changes?".
+  Click Yes. The tool needs Administrator rights to remove the virus.
+
+STEP 1 - Copy the tool to the PC
+--------------------------------
+Make a folder called C:\synfix and copy the .exe into it.
+
+STEP 2 - Open Command Prompt as Administrator
+---------------------------------------------
+Open Start, type  cmd , right-click "Command Prompt", then click
+"Run as administrator". Then type this and press Enter:
+
+    cd /d C:\synfix
+
+STEP 3 - Stop the virus that is running (IMPORTANT, do this first)
+-------------------------------------------------------------------
+If the virus is still running, it will infect your cleaned file again
+right away. Type:
+
+    synaptics-recover-64bit.exe -k
+
+This does 3 things:
+  [Step 1] stops the virus processes
+  [Step 2] deletes the virus folders (C:\ProgramData\Synaptics, etc.)
+  [Step 3] removes the virus from the registry so it does not start with Windows
+Press ENTER when it asks. Then RESTART the PC, and do STEP 2 again.
+
+STEP 4 - Clean your infected program
+------------------------------------
+Type this, with your file's real path. Keep the quotes, because paths
+can have spaces:
+
+    synaptics-recover-64bit.exe "C:\path\to\infected.exe" "C:\path\to\clean.exe"
+
+Example for a VCDS loader on the Desktop:
+
+    synaptics-recover-64bit.exe "C:\Users\me\Desktop\VCDS Loader.exe" "C:\Users\me\Desktop\VCDS Loader CLEAN.exe"
+
+Tip: type the start of the command, then drag the .exe from File Explorer
+into the black window. Windows types the full path for you.
+
+What the result means:
+  "Successfully recover executable file, virus version N."
+      -> It worked. The clean file is the original program without the
+         virus. Test that it works. If it does, delete the infected file
+         and rename the clean file to the old name.
+
+  "File is not infected, the virus version not found."
+      -> This file does not have the Synaptics virus. Nothing was written.
+
+  "File is infected, but the binary resource not found."
+      -> This file IS the virus. There is no real program inside it to
+         recover. Delete it and get the program again from a clean source.
+
+  "This tool is disguised as being infected."
+      -> You pointed the tool at its own .exe. Pick the correct file.
+
+Press ENTER to close each message.
+
+STEP 5 (recommended) - Clean the rest of the PC and your USB sticks
+-------------------------------------------------------------------
+This virus spreads to other .exe and Excel (.xlsm) files, and to USB
+sticks. To scan a whole drive and fix the files where they are:
+
+    synaptics-recover-64bit.exe C:\
+
+Do the same for each USB stick (use its letter, for example E:\):
+
+    synaptics-recover-64bit.exe E:\
+
+This can take a long time on a big drive. It fixes infected programs in
+place and DELETES files that are only the virus (for example
+"._cache_*.exe" files).
+Also check other PCs you plugged the same USB stick into.
+
+OTHER OPTIONS
+-------------
+    synaptics-recover-64bit.exe -h     show help
+    synaptics-recover-64bit.exe -v     show version
+
+NOTE
+----
+This tool only removes the Synaptics virus. If a program came from an
+untrusted download, it may also have other malware that this tool does
+not detect. When you are online again, scan the PC with Windows Defender
+or Malwarebytes.
