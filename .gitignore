@@ -96,3 +96,6 @@ CMakeSettings.json
 *.sublime-*
 setup-vcpkg.json
 setup-vcpkg-temp*
+# Easy build (build.sh / build-windows.bat)
+w64devkit/
+w64devkit*.7z.exe

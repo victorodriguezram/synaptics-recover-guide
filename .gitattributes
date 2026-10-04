@@ -1,0 +1,5 @@
+# .bat files must keep Windows line endings, .sh files must keep Linux ones,
+# or the build scripts break after a git clone on the other system.
+*.bat text eol=crlf
+*.sh  text eol=lf
+*.txt text eol=crlf
